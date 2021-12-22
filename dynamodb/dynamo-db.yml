@@ -1,0 +1,16 @@
+version: '3.8'
+networks:
+  dev-network:
+    name: "dev-network"
+services:
+  dynamodb-local:
+    command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8001:8000"
+    volumes:
+      - "./dbdata:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+    networks:
+      - dev-network
